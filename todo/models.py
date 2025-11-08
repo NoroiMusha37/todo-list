@@ -20,7 +20,7 @@ class Task(models.Model):
         return self.content
 
     class Meta:
-        ordering = ['complete', '-created']
+        ordering = ["complete", "-created"]
 
     def toggle(self):
         self.complete = not self.complete

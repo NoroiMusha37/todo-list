@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import generic, View
 from .models import Task, Tag
 
 
@@ -10,10 +10,11 @@ class TaskListView(generic.ListView):
     template_name = "todo/index.html"
 
 
-def toggle_task_status(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
-    task.toggle()
-    return redirect("todo:index")
+class ToggleTaskStatusView(View):
+    def post(self, request, task_id):
+        task = get_object_or_404(Task, id=task_id)
+        task.toggle()
+        return redirect("todo:index")
 
 
 class TaskCreateView(generic.CreateView):
