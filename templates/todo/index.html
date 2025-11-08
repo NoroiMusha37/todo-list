@@ -3,7 +3,7 @@
 {% block content %}
   <h1>
     TODO list
-    <a href="{% url 'todo:task-create' %}" class="btn btn-primary link-to-page">
+    <a href="{% url 'todo:task-create' %}" class="btn btn-success link-to-page">
       Add task
     </a>
   </h1>
@@ -30,6 +30,13 @@
             {% empty %}
               no tags
             {% endfor %}
+          </td>
+          <td>
+            {% if task.complete %}
+              <a href="{% url 'todo:toggle_task_status' task.id %}" class="btn btn-danger btn-sm">Undo</a>
+            {% else %}
+              <a href="{% url 'todo:toggle_task_status' task.id %}" class="btn btn-success btn-sm">Complete</a>
+            {% endif %}
           </td>
           <td>
             <a href="{% url 'todo:task-update' pk=task.id %}">
