@@ -12,36 +12,41 @@
       {% for task in task_list %}
         <tr>
           <td>
-              {{ task.content }}
+            {{ task.content }}
           </td>
           <td>
-              {{ task.complete }}
+            {{ task.complete }}
           </td>
           <td>
-              Created: {{ task.created }}
+            Created: {{ task.created }}
           </td>
           <td>
-              Deadline: {{ task.deadline }}
+            Deadline: {{ task.deadline }}
           </td>
           <td>
-              Tags: {{ task.tags }}
+            Tags:
+            {% for tag in task.tags.all %}
+              {{ tag.name }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              no tags
+            {% endfor %}
           </td>
           <td>
-              <a href="{% url 'todo:task-update' pk=task.id %}">
-                Update
-              </a>
-            </td>
-            <td>
-              <a style="color: red"
-                href="{% url 'todo:task-delete' pk=task.id %}">
-                Delete
-              </a>
-            </td>
+            <a href="{% url 'todo:task-update' pk=task.id %}">
+              Update
+            </a>
+          </td>
+          <td>
+            <a style="color: red"
+               href="{% url 'todo:task-delete' pk=task.id %}">
+              Delete
+            </a>
+          </td>
         </tr>
       {% endfor %}
     </table>
 
   {% else %}
-      <p>There are no tasks yet.</p>
+    <p>There are no tasks yet.</p>
   {% endif %}
 {% endblock %}
