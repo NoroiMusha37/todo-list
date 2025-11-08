@@ -8,10 +8,15 @@ from .views import (
     TagCreateView,
     TagUpdateView,
     TagDeleteView,
+    toggle_task_status,
 )
 
 urlpatterns = [
     path("", TaskListView.as_view(), name="index"),
+    path(
+        "toggle/<int:task_id>/",
+        toggle_task_status,
+        name="toggle_task_status"),
     path(
         "tasks/create/",
         TaskCreateView.as_view(),

@@ -18,3 +18,10 @@ class Task(models.Model):
 
     def __str__(self):
         return self.content
+
+    class Meta:
+        ordering = ['complete', '-created']
+
+    def toggle(self):
+        self.complete = not self.complete
+        self.save()
